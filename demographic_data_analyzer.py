@@ -6,10 +6,10 @@ def calculate_demographic_data(print_data=True):
     df = pd.read_csv('adult.data.csv')
 
     # How many of each race are represented in this dataset? This should be a Pandas series with race names as the index labels.
-    race_count = df['native-country'].value_counts()
+    race_count = df['race'].value_counts()
 
     # What is the average age of men?
-    average_age_men = df['age'].mean()
+    average_age_men = df.loc[df["sex"] == "Male"]["age"].mean()
 
     # What is the percentage of people who have a Bachelor's degree?
     percentage_bachelors = df.loc[df['education'] == 'Bachelors'].shape[0]/df['education'].shape[0]*100
@@ -53,14 +53,13 @@ def calculate_demographic_data(print_data=True):
 
     return {
         'race_count': race_count,
-        'average_age_men': average_age_men,
-        'percentage_bachelors': percentage_bachelors,
-        'higher_education_rich': higher_education_rich,
-        'lower_education_rich': lower_education_rich,
+        'average_age_men': round(average_age_men, 1),
+        'percentage_bachelors': round(percentage_bachelors, 1),
+        'higher_education_rich': round(higher_education_rich, 1),
+        'lower_education_rich': round(lower_education_rich, 1),
         'min_work_hours': min_work_hours,
-        'rich_percentage': rich_percentage,
+        'rich_percentage': round(rich_percentage, 1),
         'highest_earning_country': highest_earning_country,
-        'highest_earning_country_percentage':
-        highest_earning_country_percentage,
+        'highest_earning_country_percentage':highest_earning_country_percentage,
         'top_IN_occupation': top_IN_occupation
     }
